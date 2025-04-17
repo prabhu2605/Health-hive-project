@@ -1,0 +1,29 @@
+{
+  "name": "health_hive",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yashasbm1807/HealthHive.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yashasbm1807/HealthHive/issues"
+  },
+  "homepage": "https://github.com/Yashasbm1807/HealthHive#readme",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "handlebars": "^4.7.8",
+    "mongodb": "^6.15.0",
+    "xss": "^1.0.15"
+  }
+}
