@@ -1,0 +1,28 @@
+<h1>Register</h1>
+
+{{#if error}}
+  <p style="color: red;"><strong>{{error}}</strong></p>
+{{/if}}
+
+{{#if success}}
+  <p style="color: green;"><strong>{{success}}</strong></p>
+{{/if}}
+
+<form action="/register" method="POST" id="register-form">
+  <label for="email">Email:</label>
+  <input type="email" name="email" id="email" required>
+
+  <label for="username">Username:</label>
+  <input type="text" name="username" id="username" required>
+
+  <label for="password">Password:</label>
+  <input type="password" name="password" id="password" required>
+
+  <label for="confirmPassword">Confirm Password:</label>
+  <input type="password" name="confirmPassword" id="confirmPassword" required>
+
+  <button type="submit">Register</button>
+</form>
+
+<p><a href="/">Back to home</a></p>
+

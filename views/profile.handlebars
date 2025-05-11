@@ -1,0 +1,29 @@
+<h1>Your Profile</h1>
+
+<p><strong>Email:</strong> {{email}}</p>
+<p><strong>Username:</strong> {{username}}</p>
+
+<form action="/profile" method="POST" id="profile-form" enctype="multipart/form-data">
+  <label for="bio">Bio:</label><br>
+  <textarea name="bio" id="bio" rows="5" cols="40">{{bio}}</textarea><br><br>
+
+  <label for="profilePhoto">Upload Profile Photo:</label><br>
+  <input type="file" name="profilePhoto" id="profilePhoto" accept="image/*"><br><br>
+
+  <button type="submit">Update Profile</button>
+</form>
+
+{{#if profilePhoto}}
+  <h4>Current Profile Photo:</h4>
+  <img src="data:image/jpeg;base64,{{profilePhoto}}" alt="Profile Photo" width="200" height="200">
+{{/if}}
+
+<p><a href="/user">Back to Dashboard</a></p>
+
+{{#if error}}
+  <p style="color:red">{{error}}</p>
+{{/if}}
+
+{{#if success}}
+  <p style="color:green">{{success}}</p>
+{{/if}}
