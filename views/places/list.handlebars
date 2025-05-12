@@ -1,6 +1,13 @@
 <div class="places-container">
   <h1>Browse Wellness Places</h1>
   
+  {{#if success}}
+    <div class="alert alert-success">{{success}}</div>
+  {{/if}}
+  {{#if error}}
+    <div class="alert alert-error">{{error}}</div>
+  {{/if}}
+
   {{#if user}}
     <a href="/places/add" class="btn btn-primary">Add New Place</a>
   {{/if}}
@@ -22,3 +29,64 @@
     {{/each}}
   </div>
 </div>
+
+<style>
+  .places-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .place-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.2s;
+  }
+  .place-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  .place-card a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .place-type {
+    color: #666;
+    font-style: italic;
+  }
+  .place-location {
+    color: #333;
+    margin: 5px 0;
+  }
+  .place-meta {
+    font-size: 0.9em;
+    color: #888;
+  }
+  .alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+  .alert-success {
+    background: #dff0d8;
+    color: #3c763d;
+  }
+  .alert-error {
+    background: #f2dede;
+    color: #a94442;
+  }
+</style>
