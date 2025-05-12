@@ -38,7 +38,6 @@ export const createPlace = async (name, type, services, location, addedBy) => {
       throw new Error('Database did not acknowledge the insertion');
     }
 
-    // Verify the place exists
     const foundPlace = await placesCollection.findOne({ _id: result.insertedId });
     console.log('Found place after insertion:', foundPlace);
 
