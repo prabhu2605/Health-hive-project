@@ -1,0 +1,44 @@
+<div class="profile-container">
+  <h1>Your Profile</h1>
+
+  {{#if error}}
+    <div class="alert alert-danger">{{error}}</div>
+  {{/if}}
+
+  <div class="profile-info">
+    <div class="profile-field">
+      <label>Email:</label>
+      <p>{{user.email}}</p>
+    </div>
+
+    <div class="profile-field">
+      <label>Username:</label>
+      <p>{{user.username}}</p>
+    </div>
+  </div>
+
+  <form action="/profile?_method=PUT" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="bio">Bio:</label>
+      <textarea id="bio" name="bio" class="form-control">{{user.bio}}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="profilePhoto">Profile Photo:</label>
+      <input type="file" id="profilePhoto" name="profilePhoto" class="form-control-file">
+      <small class="form-text text-muted">Max size 2MB (JPEG/PNG only)</small>
+    </div>
+
+    {{#if user.profilePhoto}}
+    <div class="current-photo">
+      <label>Current Photo:</label>
+      <img src="data:image/jpeg;base64,{{user.profilePhoto}}" alt="Profile Photo" class="img-thumbnail">
+    </div>
+    {{/if}}
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Update Profile</button>
+      <a href="/dashboard" class="btn btn-outline-primary">Back to Dashboard</a>
+    </div>
+  </form>
+</div>

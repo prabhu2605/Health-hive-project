@@ -1,0 +1,24 @@
+<div class="places-container">
+  <h1>Browse Wellness Places</h1>
+  
+  {{#if user}}
+    <a href="/places/add" class="btn btn-primary">Add New Place</a>
+  {{/if}}
+
+  <div class="places-grid">
+    {{#each places}}
+      <div class="place-card">
+        <a href="/places/{{this._id}}">
+          <h3>{{this.name}}</h3>
+          <p class="place-type">{{this.type}}</p>
+          <p class="place-location">{{this.location.address}}, {{this.location.city}}</p>
+          <div class="place-meta">
+            <span>{{this.services.length}} services</span>
+          </div>
+        </a>
+      </div>
+    {{else}}
+      <p>No places found. Be the first to add one!</p>
+    {{/each}}
+  </div>
+</div>

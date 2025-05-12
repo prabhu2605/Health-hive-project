@@ -1,0 +1,16 @@
+<div class="dashboard-container">
+  <h1>Welcome, {{user.username}}!</h1>
+  
+  <div class="dashboard-card">
+    <h2>Account Overview</h2>
+    <div class="dashboard-info">
+      <p><strong>Email:</strong> {{user.email}}</p>
+      <p><strong>Member Since:</strong> {{user.joinDate}}</p>
+    </div>
+    
+    <div class="dashboard-actions">
+      <a href="/profile" class="btn btn-primary">Edit Profile</a>
+      <a href="/logout" class="btn btn-secondary">Logout</a>
+    </div>
+  </div>
+</div>

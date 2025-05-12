@@ -1,0 +1,35 @@
+<div class="place-detail-container">
+  <h1>{{place.name}}</h1>
+  
+  <div class="place-meta">
+    <span class="place-type">{{place.type}}</span>
+    <span class="place-location">
+      {{place.location.address}}, {{place.location.city}}, {{place.location.state}} {{place.location.zip}}
+    </span>
+  </div>
+
+  <div class="place-content">
+    <div class="place-services">
+      <h3>Services Offered</h3>
+      <ul>
+        {{#each place.services}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <div class="place-stats">
+      <p>Average Rating: {{place.averageRating}} ★</p>
+      <p>Review Count: {{place.reviewCount}}</p>
+    </div>
+  </div>
+
+  <div class="place-actions">
+  <a href="/places" class="btn-back">← Back to all places</a>
+  {{#if user}}
+    {{#if (eq user._id (toString place.addedBy))}}
+      <a href="/places/{{place._id}}/edit" class="btn-edit">Edit</a>
+    {{/if}}
+  {{/if}}
+</div>
+</div>
