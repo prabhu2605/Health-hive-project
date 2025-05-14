@@ -1,3 +1,5 @@
+// routes/users.js
+
 import { Router } from 'express';
 import { createUser, findUserByEmail, updateUserProfile } from '../data/users.js';
 import bcrypt from 'bcryptjs';
@@ -6,8 +8,6 @@ import multer from 'multer';
 import { ObjectId } from 'mongodb';
 
 const router = Router();
-
-// Setup multer in memory (no disk storage)
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -15,7 +15,8 @@ const upload = multer({ storage: storage });
 router.get('/', (req, res) => {
   res.render('home', {
     title: 'Health Hive - Welcome',
-    showHeader: true
+    showHeader: true,
+    user: req.session.user || null
   });
 });
 
@@ -24,18 +25,14 @@ router.get('/register', (req, res) => {
   res.render('register', { title: 'Register - Health Hive' });
 });
 
-// Handle registration
 router.post('/register', async (req, res) => {
   const { email, username, password, confirmPassword } = req.body;
-
   if (!email || !username || !password || !confirmPassword) {
     return res.status(400).render('register', { title: 'Register - Health Hive', error: 'All fields are required.' });
   }
-
   if (password !== confirmPassword) {
     return res.status(400).render('register', { title: 'Register - Health Hive', error: 'Passwords do not match.' });
   }
-
   try {
     await createUser(email, username, password);
     res.redirect('/login');
@@ -49,10 +46,8 @@ router.get('/login', (req, res) => {
   res.render('login', { title: 'Login - Health Hive' });
 });
 
-// Handle login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-
   if (!email || !password) {
     return res.status(400).render('login', { title: 'Login - Health Hive', error: 'Both email and password are required.' });
   }
@@ -73,10 +68,10 @@ router.post('/login', async (req, res) => {
       username: user.username,
       email: user.email,
       bio: user.bio || '',
-      profilePhoto: user.profilePhoto.toString('base64')
+      profilePhoto: user.profilePhoto?.toString('base64') || ''
     };
-    console.log(user.profilePhoto.buffer)
-    res.redirect('/user');
+
+    res.redirect('/');
   } catch (e) {
     res.status(500).render('login', { title: 'Login - Health Hive', error: e.message || 'Something went wrong.' });
   }
@@ -100,18 +95,16 @@ router.post('/profile', loginMiddleware, upload.single('profilePhoto'), async (r
   const profilePhoto = req.file ? req.file : null;
 
   try {
-    // const imageBuffer = profilePhoto.buffer;
-    const updatedUser = await updateUserProfile(new ObjectId(req.session.user._id), bio.trim(), profilePhoto.buffer);
-
+    const updatedUser = await updateUserProfile(new ObjectId(req.session.user._id), bio.trim(), profilePhoto?.buffer);
     req.session.user.bio = updatedUser.bio;
-    req.session.user.profilePhoto = updatedUser.profilePhoto.buffer;
-    
+    req.session.user.profilePhoto = updatedUser.profilePhoto?.toString('base64') || '';
+
     res.render('profile', {
       title: 'Edit Profile - Health Hive',
       username: req.session.user.username,
       email: req.session.user.email,
       bio: updatedUser.bio,
-      profilePhoto: req.session.user.profilePhoto.toString('base64'),
+      profilePhoto: req.session.user.profilePhoto,
       success: 'Profile updated successfully.'
     });
   } catch (e) {

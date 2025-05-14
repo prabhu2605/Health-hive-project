@@ -2,6 +2,7 @@
 
 export const loginMiddleware = (req, res, next) => {
   if (!req.session.user) {
+    req.session.returnTo = req.originalUrl;
     return res.redirect('/login');
   }
 
@@ -11,4 +12,12 @@ export const loginMiddleware = (req, res, next) => {
   res.set('Expires', '0');
 
   next();
+};
+
+// Authentication middleware
+export const ensureAuthenticated = (req, res, next) => {
+  if (req.session.user) {
+    return next();
+  }
+  res.redirect('/login');
 };
